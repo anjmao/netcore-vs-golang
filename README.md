@@ -5,6 +5,9 @@ Test http client, object serialize and deserialize times
 ## Start containers
 `docker-compose up -e HOST=192.168.1.145`
 
+## Run test
+`cd wrk && make run`
+
 Note: change HOST to your local host IP
 
 ### .net core api
