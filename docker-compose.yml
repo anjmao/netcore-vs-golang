@@ -1,0 +1,25 @@
+version: '3'
+services:
+  api:
+    build: ./api
+    ports:
+     - "5002:5002"
+
+  go:
+    build: ./go
+    ports:
+     - "5001:5001"
+    environment:
+     - HOST=${HOST}
+    depends_on:
+     - api
+
+  netcore:
+    build: ./netcore
+    ports:
+     - "5000:5000"
+    environment:
+     - HOST=${HOST}
+    depends_on:
+     - api
+
