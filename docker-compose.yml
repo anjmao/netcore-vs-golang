@@ -2,6 +2,7 @@ version: '3'
 services:
   api:
     build: ./api
+    hostname: api
     ports:
      - "5002:5002"
 
@@ -10,8 +11,8 @@ services:
     ports:
      - "5001:5001"
     environment:
-     - HOST=${HOST}
-    depends_on:
+     - HOST=api
+    links:
      - api
 
   netcore:
@@ -19,7 +20,8 @@ services:
     ports:
      - "5000:5000"
     environment:
-     - HOST=${HOST}
-    depends_on:
+     - HOST=api
+    links:
      - api
+
 

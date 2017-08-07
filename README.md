@@ -3,12 +3,12 @@
 Test http client, object serialize and deserialize times
 
 ## Start containers
-`docker-compose up -e HOST=192.168.1.145`
+`docker-compose up`
 
 ## Run test
 `cd wrk && make run`
 
-Note: change HOST to your local host IP
+## Results
 
 ### .net core api
 
@@ -17,18 +17,22 @@ wrk --connections 256 --duration 60s --threads 8 --timeout 5s --latency --script
 Running 1m test @ http://localhost:5000
   8 threads and 256 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
-    Latency   135.48ms   36.55ms 307.72ms   73.63%
-    Req/Sec   228.45     83.09   555.00     60.63%
+    Latency    26.01ms   48.62ms   1.11s    99.05%
+    Req/Sec   216.88    132.43   750.00     64.13%
   Latency Distribution
-     50%  133.44ms
-     75%  156.51ms
-     90%  181.22ms
-     99%  229.40ms
-  109006 requests in 1.00m, 23.57MB read
-  Socket errors: connect 0, read 415, write 2, timeout 0
-  Non-2xx or 3xx responses: 6
-Requests/sec:   1815.36
-Transfer/sec:    401.99KB
+     50%   20.18ms
+     75%   26.21ms
+     90%   35.01ms
+     99%   72.83ms
+  99502 requests in 1.00m, 21.52MB read
+  Socket errors: connect 0, read 31940, write 0, timeout 0
+Requests/sec:   1656.06
+Transfer/sec:    366.72KB
+```
+
+```
+CPU: 150%
+MEM: 90MB
 ```
 
 ### golang api
@@ -38,16 +42,21 @@ wrk --connections 256 --duration 60s --threads 8 --timeout 5s --latency --script
 Running 1m test @ http://localhost:5001
   8 threads and 256 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
-    Latency    82.78ms  135.06ms   1.76s    95.92%
-    Req/Sec   234.87    172.69     1.02k    72.98%
+    Latency    10.45ms   40.09ms 957.84ms   99.25%
+    Req/Sec   672.53    512.82     2.11k    66.98%
   Latency Distribution
-     50%   54.63ms
-     75%   85.81ms
-     90%  134.80ms
-     99%  800.28ms
-  106498 requests in 1.00m, 19.37MB read
-  Socket errors: connect 0, read 32597, write 0, timeout 0
-Requests/sec:   1772.37
-Transfer/sec:    330.17KB
+     50%    6.67ms
+     75%    9.10ms
+     90%   12.31ms
+     99%   30.99ms
+  309947 requests in 1.00m, 56.39MB read
+  Socket errors: connect 0, read 29980, write 0, timeout 0
+Requests/sec:   5157.72
+Transfer/sec:      0.94MB
+```
+
+```
+CPU: 130%
+MEM: 10MB
 ```
 
