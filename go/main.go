@@ -30,7 +30,6 @@ func main() {
 			return
 		}
 
-		rsp.Close = true
 		defer rsp.Body.Close()
 
 		// deserialize
