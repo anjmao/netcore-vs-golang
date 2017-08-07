@@ -1,6 +1,6 @@
 # netcore-vs-golang
 
-Test http client, object serialize and deserialize and file descriptor leeks.
+Test http client, object serialize and deserialize and file descriptor leaks.
 
 Each service has `/test` endpoint which calls another api using http client and returns that api response as JSON.
 
@@ -25,13 +25,13 @@ URL=http://localhost:5000 make run
 URL=http://localhost:5001 make run
 ```
 
-## Check for file descriptors leeks
+## Check for file descriptors leaks
 
 Connect to docker container
 `docker exec -it <CONTAINER_ID> /bin/bash`
 
 Count TIME_WAIT state
-`netstat | grep TIME_WAIT > leek &&  wc -l leek`
+`netstat | grep TIME_WAIT > leak &&  wc -l leak`
 
 ## Results
 
