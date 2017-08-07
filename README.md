@@ -1,62 +1,81 @@
 # netcore-vs-golang
 
-Test http client, object serialize and deserialize times
+Test http client, object serialize and deserialize and file descriptor leeks.
+
+Each service has `/test` endpoint which calls another api using http client and returns that api response as JSON.
 
 ## Start containers
-`docker-compose up`
+`docker-compose up --build`
 
-## Run test
-`cd wrk && make run`
+## Run load test
+
+```
+brew install wrk
+// now go to wrk folder and run
+make run
+```
+
+## Check for file descriptors leeks
+
+Connect to docker container
+`docker exec -it <CONTAINER_ID> /bin/bash`
+
+Count TIME_WAIT state
+`netstat | grep TIME_WAIT > leek &&  wc -l leek`
 
 ## Results
 
 ### .net core api
 
 ```
-wrk --connections 256 --duration 60s --threads 8 --timeout 5s --latency --script /Users/anma/go/src/github.com/anjmao/netcore-vs-golang/wrk/requests.lua http://localhost:5000
-Running 1m test @ http://localhost:5000
+wrk --connections 256 --duration 100s --threads 8 --timeout 5s --latency --script /Users/anma/go/src/github.com/anjmao/netcore-vs-golang/wrk/requests.lua http://localhost:5000
+Running 2m test @ http://localhost:5000
   8 threads and 256 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
-    Latency    26.01ms   48.62ms   1.11s    99.05%
-    Req/Sec   216.88    132.43   750.00     64.13%
+    Latency    73.41ms   28.11ms 520.94ms   74.72%
+    Req/Sec   438.33    139.93     0.93k    70.36%
   Latency Distribution
-     50%   20.18ms
-     75%   26.21ms
-     90%   35.01ms
-     99%   72.83ms
-  99502 requests in 1.00m, 21.52MB read
-  Socket errors: connect 0, read 31940, write 0, timeout 0
-Requests/sec:   1656.06
-Transfer/sec:    366.72KB
+     50%   69.38ms
+     75%   88.03ms
+     90%  107.19ms
+     99%  157.14ms
+  347780 requests in 1.67m, 75.21MB read
+  Socket errors: connect 0, read 332, write 4, timeout 0
+Requests/sec:   3474.81
+Transfer/sec:    769.48KB
 ```
 
+Resources used
 ```
 CPU: 150%
-MEM: 90MB
+MEMORY: 90MB
+TIME_WAIT file descriptors: ~3000
 ```
 
 ### golang api
 
 ```
-wrk --connections 256 --duration 60s --threads 8 --timeout 5s --latency --script /Users/anma/go/src/github.com/anjmao/netcore-vs-golang/wrk/requests.lua http://localhost:5001
-Running 1m test @ http://localhost:5001
+wrk --connections 256 --duration 100s --threads 8 --timeout 5s --latency --script /Users/anma/go/src/github.com/anjmao/netcore-vs-golang/wrk/requests.lua http://localhost:5001
+Running 2m test @ http://localhost:5001
   8 threads and 256 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
-    Latency    10.45ms   40.09ms 957.84ms   99.25%
-    Req/Sec   672.53    512.82     2.11k    66.98%
+    Latency    31.82ms   24.01ms 523.89ms   93.84%
+    Req/Sec     1.05k   185.68     1.99k    74.99%
   Latency Distribution
-     50%    6.67ms
-     75%    9.10ms
-     90%   12.31ms
-     99%   30.99ms
-  309947 requests in 1.00m, 56.39MB read
-  Socket errors: connect 0, read 29980, write 0, timeout 0
-Requests/sec:   5157.72
-Transfer/sec:      0.94MB
+     50%   28.98ms
+     75%   37.02ms
+     90%   46.80ms
+     99%   82.77ms
+  836308 requests in 1.67m, 152.14MB read
+  Socket errors: connect 0, read 346, write 0, timeout 0
+Requests/sec:   8357.61
+Transfer/sec:      1.52MB
 ```
 
+Resources used
 ```
 CPU: 130%
-MEM: 10MB
+MEMORY: 10MB
+TIME_WAIT file descriptors: 4
 ```
 
