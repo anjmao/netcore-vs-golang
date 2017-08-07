@@ -45,17 +45,19 @@ class Startup
     {
         app.Run(async ctx =>
         {
-            var rsp = await _http.GetAsync("/data");
-            var str = await rsp.Content.ReadAsStringAsync();
+            using (var rsp = await _http.GetAsync("/data"))
+            {
+                var str = await rsp.Content.ReadAsStringAsync();
 
-            // deserialize
-            var obj = JsonConvert.DeserializeObject<Response>(str);
+                // deserialize
+                var obj = JsonConvert.DeserializeObject<Response>(str);
 
-            // serialize
-            var json = JsonConvert.SerializeObject(obj);
-            
-            ctx.Response.ContentType = "application/json";
-            await ctx.Response.WriteAsync(json);
+                // serialize
+                var json = JsonConvert.SerializeObject(obj);
+
+                ctx.Response.ContentType = "application/json";
+                await ctx.Response.WriteAsync(json);
+            }
         });
     }
 
