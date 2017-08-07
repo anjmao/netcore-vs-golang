@@ -1,4 +1,4 @@
-# netcore-vs-golang
+# .NET Core vs Golang performance
 
 Test http client, object serialize and deserialize and file descriptor leaks.
 
