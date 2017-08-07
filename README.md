@@ -26,7 +26,7 @@ URL=http://localhost:5001 make run
 
 ## Check for file descriptors leaks
 
-Connect to docker container
+Connect to docker container while wrk is running
 `docker exec -it <CONTAINER_ID> /bin/bash`
 
 Count TIME_WAIT state
