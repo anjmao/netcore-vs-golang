@@ -31,7 +31,7 @@ Connect to docker container
 `docker exec -it <CONTAINER_ID> /bin/bash`
 
 Count TIME_WAIT state
-`netstat | grep TIME_WAIT > leak &&  wc -l leak`
+`netstat -n | grep TIME_WAIT > leak &&  wc -l leak`
 
 ## Results
 
