@@ -5,14 +5,24 @@ Test http client, object serialize and deserialize and file descriptor leeks.
 Each service has `/test` endpoint which calls another api using http client and returns that api response as JSON.
 
 ## Start containers
+
 `docker-compose up --build`
 
-## Run load test
+docker-compose should start 3 containers
+1) go lang api with GET `/data` endpoint
+2) go lang api with GET `/test` endpoint which calls 1 endpoint
+3) .net core api with GET `/test` endpoint which calls 1 endpoint
+
+## Run load tests
 
 ```
 brew install wrk
-// now go to wrk folder and run
-make run
+cd wrk
+// .net core
+URL=http://localhost:5000 make run
+
+// golang
+URL=http://localhost:5001 make run
 ```
 
 ## Check for file descriptors leeks
@@ -25,7 +35,7 @@ Count TIME_WAIT state
 
 ## Results
 
-### .net core api
+### .net core api (http://localhost:5000)
 
 ```
 wrk --connections 256 --duration 100s --threads 8 --timeout 5s --latency --script /Users/anma/go/src/github.com/anjmao/netcore-vs-golang/wrk/requests.lua http://localhost:5000
@@ -52,7 +62,7 @@ MEMORY: 90MB
 TIME_WAIT file descriptors: ~3000
 ```
 
-### golang api
+### golang api (http://localhost:5001)
 
 ```
 wrk --connections 256 --duration 100s --threads 8 --timeout 5s --latency --script /Users/anma/go/src/github.com/anjmao/netcore-vs-golang/wrk/requests.lua http://localhost:5001
@@ -79,3 +89,8 @@ MEMORY: 10MB
 TIME_WAIT file descriptors: 4
 ```
 
+## My machine spec
+
+MacBook Pro (15-inch, 2017)
+Processor 2,9 GHz Intel Core i7
+Memory 16 GB 2133 MHz LPDDR3
