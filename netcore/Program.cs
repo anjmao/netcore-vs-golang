@@ -40,8 +40,6 @@ class Startup
         BaseAddress = new Uri($"http://{Environment.GetEnvironmentVariable("HOST")}:5002")
     };
 
-    private static Random _random = new Random();
-
     private static void HandleTest(IApplicationBuilder app)
     {
         app.Run(async ctx =>
