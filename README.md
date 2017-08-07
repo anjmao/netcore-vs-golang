@@ -1,7 +1,6 @@
 # .NET Core vs Golang performance
 
-Test http client, object serialize and deserialize and file descriptor leaks.
-
+This repository holds code to test http api performance between .NET Core and Golang HTTP.
 Each service has `/test` endpoint which calls another api using http client and returns that api response as JSON.
 
 ## Start containers
@@ -9,9 +8,9 @@ Each service has `/test` endpoint which calls another api using http client and 
 `docker-compose up --build`
 
 docker-compose should start 3 containers
-1) go lang api with GET `/data` endpoint
-2) go lang api with GET `/test` endpoint which calls 1 endpoint
-3) .net core api with GET `/test` endpoint which calls 1 endpoint
+1) Golang api with GET `http://localhost:5002/data` endpoint
+2) Golang api with GET `http://localhost:5001/test` endpoint which calls 1 endpoint
+3) .NET Core api with GET `http://localhost:5000/test` endpoint which calls 1 endpoint
 
 ## Run load tests
 
