@@ -26,6 +26,7 @@ class Program
             .UseUrls("http://*:5000")
             .Build();
 }
+
 class Response
 {
     public string Id { get; set; }
