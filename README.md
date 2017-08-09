@@ -41,23 +41,23 @@ wrk --connections 256 --duration 100s --threads 8 --timeout 5s --latency --scrip
 Running 2m test @ http://localhost:5000
   8 threads and 256 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
-    Latency    73.41ms   28.11ms 520.94ms   74.72%
-    Req/Sec   438.33    139.93     0.93k    70.36%
+    Latency   100.52ms   28.07ms 281.63ms   72.16%
+    Req/Sec   316.30     85.83   800.00     72.31%
   Latency Distribution
-     50%   69.38ms
-     75%   88.03ms
-     90%  107.19ms
-     99%  157.14ms
-  347780 requests in 1.67m, 75.21MB read
-  Socket errors: connect 0, read 332, write 4, timeout 0
-Requests/sec:   3474.81
-Transfer/sec:    769.48KB
+     50%   98.94ms
+     75%  115.71ms
+     90%  134.77ms
+     99%  186.74ms
+  252037 requests in 1.67m, 54.50MB read
+  Socket errors: connect 0, read 347, write 1, timeout 0
+Requests/sec:   2518.12
+Transfer/sec:    557.63KB
 ```
 
 Resources used
 ```
 CPU: 150%
-MEMORY: 90MB
+MEMORY: 168MB
 TIME_WAIT file descriptors: ~3000
 ```
 
@@ -68,23 +68,23 @@ wrk --connections 256 --duration 100s --threads 8 --timeout 5s --latency --scrip
 Running 2m test @ http://localhost:5001
   8 threads and 256 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
-    Latency    31.82ms   24.01ms 523.89ms   93.84%
-    Req/Sec     1.05k   185.68     1.99k    74.99%
+    Latency    43.90ms   21.67ms 321.66ms   70.69%
+    Req/Sec   733.84    154.79     1.55k    80.85%
   Latency Distribution
-     50%   28.98ms
-     75%   37.02ms
-     90%   46.80ms
-     99%   82.77ms
-  836308 requests in 1.67m, 152.14MB read
-  Socket errors: connect 0, read 346, write 0, timeout 0
-Requests/sec:   8357.61
-Transfer/sec:      1.52MB
+     50%   41.75ms
+     75%   55.51ms
+     90%   71.49ms
+     99%  109.41ms
+  584625 requests in 1.67m, 106.36MB read
+  Socket errors: connect 0, read 284, write 0, timeout 0
+Requests/sec:   5842.33
+Transfer/sec:      1.06MB
 ```
 
 Resources used
 ```
 CPU: 130%
-MEMORY: 10MB
+MEMORY: 22.57MB
 TIME_WAIT file descriptors: 4
 ```
 
