@@ -36,7 +36,12 @@ class Response
 
 class Startup
 {
-    private static readonly HttpClient _http = new HttpClient
+    private static readonly HttpMessageHandler _httpHandler = new HttpClientHandler 
+    {
+        MaxConnectionsPerServer = 4000
+    };
+
+    private static readonly HttpClient _http = new HttpClient(_httpHandler)
     {
         BaseAddress = new Uri($"http://{Environment.GetEnvironmentVariable("HOST")}:5002")
     };
