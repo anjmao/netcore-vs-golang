@@ -30,7 +30,7 @@ Connect to docker container while wrk is running
 `docker exec -it <CONTAINER_ID> /bin/bash`
 
 Count TIME_WAIT state
-`netstat -n | grep TIME_WAIT > leak &&  wc -l leak`
+`ss -t4 state time-wait | wc -l`
 
 ## Results
 
