@@ -40,17 +40,17 @@ Count TIME_WAIT state
 Running 2m test @ http://localhost:5000
   8 threads and 256 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
-    Latency   174.81ms  305.76ms   3.30s    92.63%
-    Req/Sec   340.06    148.97     1.00k    72.87%
+    Latency   104.67ms   33.49ms 593.62ms   74.62%
+    Req/Sec   303.83     89.02   670.00     71.21%
   Latency Distribution
-     50%   93.52ms
-     75%  126.49ms
-     90%  268.62ms
-     99%    1.70s
-  244303 requests in 1.67m, 52.83MB read
-  Socket errors: connect 0, read 167, write 11, timeout 0
-Requests/sec:   2441.41
-Transfer/sec:    540.63KB
+     50%  101.26ms
+     75%  122.38ms
+     90%  144.94ms
+     99%  198.08ms
+  240902 requests in 1.67m, 52.10MB read
+  Socket errors: connect 0, read 373, write 0, timeout 0
+Requests/sec:   2407.66
+Transfer/sec:    533.17KB
 ```
 
 Resources used
