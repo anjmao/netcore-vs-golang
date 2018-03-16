@@ -32,7 +32,10 @@ func main() {
 		}
 
 		w.Header().Set("Content-Type", "application/json")
-		w.Write(js)
+		if _, err := w.Write(js); err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
 	})
 
 	addr := ":5002"

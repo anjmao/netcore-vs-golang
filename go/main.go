@@ -48,7 +48,10 @@ func main() {
 		}
 
 		w.Header().Set("Content-Type", "application/json")
-		w.Write(jsonStr)
+		if _, err := w.Write(jsonStr); err != nil {
+			serverError(w, err.Error())
+			return
+		}
 	})
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {

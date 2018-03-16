@@ -37,55 +37,53 @@ Count TIME_WAIT state
 ### .net core api (http://localhost:5000)
 
 ```
-wrk --connections 256 --duration 100s --threads 8 --timeout 5s --latency --script /Users/anma/go/src/github.com/anjmao/netcore-vs-golang/wrk/requests.lua http://localhost:5000
 Running 2m test @ http://localhost:5000
   8 threads and 256 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
-    Latency   100.52ms   28.07ms 281.63ms   72.16%
-    Req/Sec   316.30     85.83   800.00     72.31%
+    Latency   174.81ms  305.76ms   3.30s    92.63%
+    Req/Sec   340.06    148.97     1.00k    72.87%
   Latency Distribution
-     50%   98.94ms
-     75%  115.71ms
-     90%  134.77ms
-     99%  186.74ms
-  252037 requests in 1.67m, 54.50MB read
-  Socket errors: connect 0, read 347, write 1, timeout 0
-Requests/sec:   2518.12
-Transfer/sec:    557.63KB
+     50%   93.52ms
+     75%  126.49ms
+     90%  268.62ms
+     99%    1.70s
+  244303 requests in 1.67m, 52.83MB read
+  Socket errors: connect 0, read 167, write 11, timeout 0
+Requests/sec:   2441.41
+Transfer/sec:    540.63KB
 ```
 
 Resources used
 ```
-CPU: 150%
-MEMORY: 168MB
-TIME_WAIT file descriptors: ~3000
+CPU: 100%
+MEMORY: 138MB
+TIME_WAIT file descriptors: ~4000
 ```
 
 ### golang api (http://localhost:5001)
 
 ```
-wrk --connections 256 --duration 100s --threads 8 --timeout 5s --latency --script /Users/anma/go/src/github.com/anjmao/netcore-vs-golang/wrk/requests.lua http://localhost:5001
 Running 2m test @ http://localhost:5001
   8 threads and 256 connections
   Thread Stats   Avg      Stdev     Max   +/- Stdev
-    Latency    43.90ms   21.67ms 321.66ms   70.69%
-    Req/Sec   733.84    154.79     1.55k    80.85%
+    Latency    43.80ms   48.89ms   1.03s    98.61%
+    Req/Sec   788.53    157.21     1.58k    72.13%
   Latency Distribution
-     50%   41.75ms
-     75%   55.51ms
-     90%   71.49ms
-     99%  109.41ms
-  584625 requests in 1.67m, 106.36MB read
-  Socket errors: connect 0, read 284, write 0, timeout 0
-Requests/sec:   5842.33
-Transfer/sec:      1.06MB
+     50%   40.18ms
+     75%   51.54ms
+     90%   63.41ms
+     99%  103.43ms
+  624213 requests in 1.67m, 113.56MB read
+  Socket errors: connect 0, read 297, write 0, timeout 0
+Requests/sec:   6236.99
+Transfer/sec:      1.13MB
 ```
 
 Resources used
 ```
-CPU: 130%
+CPU: 100%
 MEMORY: 22.57MB
-TIME_WAIT file descriptors: 4
+TIME_WAIT file descriptors: ~10
 ```
 
 ## My machine spec
@@ -94,5 +92,5 @@ TIME_WAIT file descriptors: 4
 * Processor 2,9 GHz Intel Core i7
 * Memory 16 GB 2133 MHz LPDDR3
 * Docker version 17.06.0-ce, build 02c1d87
-* Golang 1.8.3
-* Dotnet 2.0.0-preview2-006497
+* Golang 1.9
+* Dotnet 2.0.0

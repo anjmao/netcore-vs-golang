@@ -22,6 +22,7 @@ class Program
 
     public static IWebHost BuildWebHost(string[] args) =>
         WebHost.CreateDefaultBuilder(args)
+            .ConfigureLogging(logging => logging.SetMinimumLevel(LogLevel.Error))
             .UseStartup<Startup>()
             .UseUrls("http://*:5000")
             .Build();
@@ -36,7 +37,7 @@ class Response
 
 class Startup
 {
-    private static readonly HttpMessageHandler _httpHandler = new HttpClientHandler 
+    private static readonly HttpMessageHandler _httpHandler = new HttpClientHandler
     {
         MaxConnectionsPerServer = 4000
     };
