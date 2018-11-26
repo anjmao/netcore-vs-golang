@@ -17,7 +17,6 @@ type Response struct {
 }
 
 func main() {
-
 	http.HandleFunc("/data", func(w http.ResponseWriter, r *http.Request) {
 		rsp := Response{
 			Id:   "id_" + strconv.Itoa(rand.Int()),

@@ -1,9 +1,7 @@
-FROM golang:1.9
+FROM golang:1.11.2
 
 WORKDIR /go/src/app
 COPY . .
+RUN go install ./...
 
-RUN go-wrapper download
-RUN go-wrapper install 
-
-CMD ["go-wrapper", "run"]
+CMD ["/go/bin/app"]
