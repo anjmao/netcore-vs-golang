@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json;
+using Utf8Json;
 
 class Program
 {
@@ -31,7 +31,7 @@ class Program
     }
 }
 
-class Response
+public struct Response
 {
     public string Id { get; set; }
     public string Name { get; set; }
@@ -54,30 +54,23 @@ class Startup
     {
         app.Run(async ctx =>
         {
-            using (var rsp = await _http.GetAsync("/data"))
-            {
-                var str = await rsp.Content.ReadAsStringAsync();
+            await using var rsp = await _http.GetStreamAsync("/data");
 
-                // deserialize
-                var obj = JsonConvert.DeserializeObject<Response>(str);
+            // deserialize
+            var obj = await JsonSerializer.DeserializeAsync<Response>(rsp);
 
-                // serialize
-                var json = JsonConvert.SerializeObject(obj);
-
-                ctx.Response.ContentType = "application/json";
-                await ctx.Response.WriteAsync(json);
-            }
+            // serialize
+            ctx.Response.ContentType = "application/json";
+            await JsonSerializer.SerializeAsync(ctx.Response.Body, obj);
         });
     }
-
     public void Configure(IApplicationBuilder app)
     {
         app.Map("/test", HandleTest);
 
         app.Run(async ctx =>
         {
-            //await ctx.Response.WriteAsync($"Hello, {ctx.Request.Path}");
-            await ctx.Response.WriteAsync("updated");
+            await ctx.Response.WriteAsync($"Hello, {ctx.Request.Path}");
         });
     }
 }

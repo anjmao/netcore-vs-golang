@@ -17,19 +17,18 @@ type Response struct {
 }
 
 func main() {
+	rsp := Response{
+		Id:   "id_" + strconv.Itoa(rand.Int()),
+		Name: "name_" + strconv.Itoa(rand.Int()),
+		Time: time.Now().Unix(),
+	}
+
+	js, err := json.Marshal(rsp)
+	if err != nil {
+		panic(err)
+		return
+	}
 	http.HandleFunc("/data", func(w http.ResponseWriter, r *http.Request) {
-		rsp := Response{
-			Id:   "id_" + strconv.Itoa(rand.Int()),
-			Name: "name_" + strconv.Itoa(rand.Int()),
-			Time: time.Now().Unix(),
-		}
-
-		js, err := json.Marshal(rsp)
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
-
 		w.Header().Set("Content-Type", "application/json")
 		if _, err := w.Write(js); err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
