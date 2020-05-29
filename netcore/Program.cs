@@ -1,16 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net.Http;
-using System.Threading;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
 class Program
@@ -82,7 +76,8 @@ class Startup
 
         app.Run(async ctx =>
         {
-            await ctx.Response.WriteAsync($"Hello, {ctx.Request.Path}");
+            //await ctx.Response.WriteAsync($"Hello, {ctx.Request.Path}");
+            await ctx.Response.WriteAsync("updated");
         });
     }
 }
